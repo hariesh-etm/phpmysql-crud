@@ -1,6 +1,13 @@
 <?php
 error_reporting(~E_WARNING & ~E_NOTICE);
 include('dbconnection.php');
+if(isset($_GET['delid']))
+{
+$rid=intval($_GET['delid']);
+$sql=mysqli_query($con,"delete from tblusers where ID=$rid");
+echo "<script>alert('Data deleted');</script>"; 
+echo "<script>window.location.href = 'index.php'</script>";     
+} 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +39,7 @@ if($eid == 0){?>
         <div class="form-group">
 			<div class="row">
 				<div class="col"><input type="text" class="form-control" name="fname" id="fname" placeholder="First Name" ></div>
-				<div class="col"><input type="text" class="form-control" name="lname" id="lanem"  placeholder="Last Name" ></div>
+				<div class="col"><input type="text" class="form-control" name="lname" id="lname"  placeholder="Last Name" ></div>
 			</div>        	
         </div>
         <div class="form-group">
@@ -86,15 +93,7 @@ if($eid == 0){?>
     </form>	
 </div>
 
-<?php 
-             if(isset($_GET['delid']))
-             {
-             $rid=intval($_GET['delid']);
-             $sql=mysqli_query($con,"delete from tblusers where ID=$rid");
-             echo "<script>alert('Data deleted');</script>"; 
-             echo "<script>window.location.href = 'index.php'</script>";     
-             } 
-            ?>
+<div id="delrecords" class="delrecords"></div>
 
 <div class="container-xl">
     <div class="table-responsive">
@@ -103,15 +102,12 @@ if($eid == 0){?>
                 <div class="row">
                     <div class="col-sm-5">
                         <h2>User <b>Management</b></h2>                   
-            </div>            
-            <div id="showrecords" class="showrecords"></div>
+                    </div>            
+                <div id="showrecords" class="showrecords"></div>
+            </div>
         </div>
-    </div>
-</div>  
-
-<br>
-<br>
-
+    </div> 
+</div> 
 <div class="container-xl">
     <div class="table-responsive">
         <div class="table-wrapper">
@@ -120,7 +116,6 @@ if($eid == 0){?>
                     <div class="col-sm-5">
                         <h2>User <b>Details</b></h2>
                     </div>
-                     
                 </div>
             </div>
 <table cellpadding="0" cellspacing="0" class="display table table-bordered" id="hidden-table-info">
@@ -198,7 +193,11 @@ function showRecords() {
 
                     if (receivedData.status == "success") {
                     document.querySelector(".status").innerHTML =receivedData.message;
-
+                    document.getElementById("fname").value="";
+                    document.getElementById("lname").value="";
+                    document.getElementById("contactno").value="";
+                    document.getElementById("email").value="";
+                    document.getElementById("address").value="";
                     showRecords();
                     
                     }

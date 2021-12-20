@@ -6,8 +6,7 @@
         $contactno = $_POST['contactno'];
         $email = $_POST['email'];  
         $address=$_POST['address']; 
-        // print_r($_POST);
-        // exit;
+      
         
         $error=false;
         $errmsg = "";
@@ -65,7 +64,7 @@
                          if (mysqli_query($conn, $sql)) { 
                                  $data = array(
                         'status' => 'success',
-                        'message' => 'successfully inserted'
+                        'message' => 'Added Successfull'
                         );
                              //echo "Thank you for the responce, We will contact you soon";
                                 } else {
